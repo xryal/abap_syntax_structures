@@ -1,25 +1,45 @@
-PARAMETERS: p_input TYPE string OBLIGATORY.
+REPORT zab_p09_palindrome.
 
-DATA: lv_length TYPE i,
-      lv_half_length TYPE i,
-      lv_is_palindrome TYPE abap_bool,
-      lv_message TYPE string.
 
-lv_length = STRLEN( p_input ).
-lv_half_length = lv_length / 2.
+PARAMETERS: p_girdi TYPE string.
 
-DO lv_half_length TIMES.
-  IF p_input( sy-index ) NE p_input( lv_length - sy-index + 1 ).
-    lv_is_palindrome = abap_false.
-    EXIT.
+DATA: uzunluk         TYPE i,
+
+      son_imlec       TYPE i,
+
+      sayici          TYPE i VALUE '0',
+
+      baslangic_imlec TYPE i.
+
+uzunluk  = strlen( p_girdi ).
+
+son_imlec = uzunluk - 1.
+
+DO uzunluk TIMES.
+
+  IF p_girdi+baslangic_imlec(1) = p_girdi+son_imlec(1).
+
+
+    sayici = sayici + 1.
+
+  ELSE.
+
+    sayici = 0.
+
   ENDIF.
+
+  son_imlec = son_imlec - 1.
+
+  baslangic_imlec = baslangic_imlec + 1.
+
 ENDDO.
 
-IF lv_is_palindrome IS INITIAL.
-  lv_message = 'Girilen kelime bir palindrom değildir.'.
+IF strlen( p_girdi ) EQ sayici.
+
+  WRITE:/ 'Girilen veri palindrom'.
+
 ELSE.
-  lv_message = 'Girilen kelime bir palindromdur.'.
+
+  WRITE:/ 'Girilen veri palindrom değil'.
+
 ENDIF.
-
-WRITE: / lv_message.
-
