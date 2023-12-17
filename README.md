@@ -3,7 +3,6 @@
 I have established a repository titled 'ABAP Training' with the goal of comprehensively understanding the syntax structure and fundamental concepts of the Advanced Business Application Programming (ABAP) language. In this repository, I am diligently documenting key ABAP terms such as data types, internal tables, and function modules, while also providing examples to solidify my understanding of the language's intricacies.
 
 <li>ABAP Syntax Structure
-<li>Control Structures (IF, CASE, LOOP)
 <li>Types of ABAP Programs (Report, Function Module, Class)
 <li>Variables and Data Types
 <li>Database Access and SQL in ABAP
