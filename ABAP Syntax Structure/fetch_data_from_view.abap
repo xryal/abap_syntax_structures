@@ -41,10 +41,13 @@ select * from ZAB_T02_DBVWEMP  into gs_fetchview1 .
   LOOP AT gt_fetchview1 INto gs_fetchview1  .
 
     WRITE : /'ÇALIŞAN ID:',gs_fetchview1-employee_id_vw.
-    WRITE : /'DEPARTMAN ID:',gs_fetchview1-DEPARTMAN_ID_VW.
+    SKIP 1.
+    WRITE :  3(7)'DEPARTMAN ID:',gs_fetchview1-DEPARTMAN_ID_VW. "3 sola gap attı 7 karakter bastı.
+    format COLOR 3.
     WRITE : /'ZAB_POSITION_ID:',gs_fetchview1-position_id_vw.
-    WRITE : / 'POSITION_NAME:',gs_fetchview1-position_name_vw.
-    WRITE : /'ÇALIŞAN ID:',gs_fetchview1-departman_name_vw.
+    WRITE : / 'POSITION_NAME:' ,gs_fetchview1-position_name_vw .
+    format color off.
+    WRITE : /'ÇALIŞAN ID:' color 6 ,gs_fetchview1-departman_name_vw color 7.
     WRITE : /'DEPARTMAN ADI:',gs_fetchview1-first_name_vw.
     WRITE : / 'SOYADI:',gs_fetchview1-last_name_vw.
     WRITE : /'Client:',gs_fetchview1-mandt.
@@ -54,3 +57,6 @@ select * from ZAB_T02_DBVWEMP  into gs_fetchview1 .
 
 
   ENDLOOP.
+
+
+ 
