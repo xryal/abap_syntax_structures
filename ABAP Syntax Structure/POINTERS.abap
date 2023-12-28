@@ -99,3 +99,6 @@ ASSIGN <lfs_1> TO <lfs_2>.
 WRITE: 'Field Symbol #2:',<lfs_2> color 5.
 skip 1.
 uline 1.
+
+*READ TABLE It_data ASSIGNING <fs_data> INDEX 1.
+"open sql sorgularında kullanılabilir.
