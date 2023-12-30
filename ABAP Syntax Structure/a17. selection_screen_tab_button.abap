@@ -1,5 +1,3 @@
-REPORT zab_p57.
-
 "TAB BUTONLARI TANIMLADIĞIMIZ YER
 SELECTION-SCREEN BEGIN OF TABBED BLOCK tb1 FOR 15 LINES.
   SELECTION-SCREEN TAB (10) t1 USER-COMMAND one.
@@ -66,7 +64,7 @@ INITIALIZATION.
   "DEFAULT TAB AYARLANAN YER
   tb1-activetab = 'TWO'.
   tb1-dynnr  = 1002.
-  tb1-prog   = sy-repid.
+  tb1-prog   = sy-repid. "PROGRAMIN ADINI TUTAN DEĞİŞKEN
   t1 = 'HELLO'.
   t2 = 'BYE'.
   pb1 = 'FULL NAME'.
@@ -99,9 +97,9 @@ START-OF-SELECTION.
 
 "KULLANICININ SEÇİM YAPTIĞI DURUMDA ÇALIŞACAK LOJİK
 AT SELECTION-SCREEN.
-  CASE sy-dynnr.
+  CASE sy-dynnr. "SELECTION SCREEN NUMBER
     WHEN 1000.
-      CASE sy-ucomm.
+      CASE sy-ucomm."FUNCTUON CODE BUTON
         WHEN 'ONE'.
           tb1-dynnr = 1001.
         WHEN 'FULL'.
