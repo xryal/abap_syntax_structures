@@ -1,3 +1,17 @@
+"internal tablodan gelen veriyi excel şeklinde ekrana basan yapıdır.
+*başlık koyulabilir.
+*kolor bazında renklendirmeler yapılabilir
+*hücresel bazda renklendirma yapılabilir
+*editible olabilir
+*hotspot eventi altı çizili değerlere tıklanabilir.
+*basit ve hiyararşik tablolar vardır
+*hiyerearşik 2 tablonun birleşimi ve header kısımları ekenir
+*tree alv yapısı vardır.
+*alvnin ihtiyacı olan şeyler:internal tablo screen field catalog.
+*field katalog: alv ekranı basarken üzerinde yaptığımız değişkenler.
+*3 alv var salv reuse alv ve oo alv(cl gui alv)
+
+
 PARAMETERS : p_fname TYPE localfile OBLIGATORY.
 
 
