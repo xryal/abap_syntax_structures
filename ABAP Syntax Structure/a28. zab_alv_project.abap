@@ -1,0 +1,129 @@
+TABLES SSCRFIELDS.
+"toolbar ekleme yeri.
+SELECTION-SCREEN FUNCTION KEY 1.
+SELECTION-SCREEN FUNCTION KEY 2.
+
+
+"Üst menüye buton ekleme.
+INITIALIZATION.
+SSCRFIELDS-FUNCTXT_01 = 'ABAP EDITOR'.
+SSCRFIELDS-FUNCTXT_02 = 'ABAP DICTIONARY'.
+
+
+
+
+
+
+
+"TAB BUTONLARI TANIMLADIĞIMIZ YER
+SELECTION-SCREEN BEGIN OF TABBED BLOCK tb1  FOR 15 LINES.
+  SELECTION-SCREEN TAB (20) t1 USER-COMMAND one.
+  SELECTION-SCREEN TAB (23) t2 USER-COMMAND two.
+SELECTION-SCREEN END OF BLOCK tb1.
+
+"SUBSCREEN TANIMLANAN YER
+SELECTION-SCREEN BEGIN OF SCREEN 1001 AS SUBSCREEN NESTING LEVEL 4.
+
+  SELECTION-SCREEN BEGIN OF BLOCK b4 WITH FRAME TITLE frame4.
+    PARAMETERS : p_d3 TYPE vbeln.
+  SELECTION-SCREEN END OF BLOCK b4.
+  SELECTION-SCREEN SKIP 2.
+
+  SELECTION-SCREEN BEGIN OF BLOCK b3 WITH FRAME TITLE frame3.
+    PARAMETERS : p_d1 TYPE vbeln,
+                 p_d2 TYPE posnr.
+  SELECTION-SCREEN END OF BLOCK b3.
+  SELECTION-SCREEN SKIP 3.
+
+  SELECTION-SCREEN PUSHBUTTON 6(25) pushbut3 USER-COMMAND full.
+  SELECTION-SCREEN PUSHBUTTON 40(25) pushbut4 USER-COMMAND full.
+
+SELECTION-SCREEN END OF SCREEN 1001.
+
+"SUBSCREEN TANIMLANAN YER
+SELECTION-SCREEN BEGIN OF SCREEN 1002 AS SUBSCREEN  NESTING LEVEL 4.
+
+  "FRAME TANIMLANAN YER
+  SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE frame1.
+                   "TEXT-006.
+    PARAMETERS : pp_d1 TYPE string DEFAULT 'Bir Dosya Uzantısı Seçin...' OBLIGATORY.
+
+  SELECTION-SCREEN END OF BLOCK b2.
+
+  SELECTION-SCREEN SKIP 2.
+
+  "FRAME TANIMLANAN YER
+  SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE frame2.
+                                       "TEXT-005.
+    SELECTION-SCREEN BEGIN OF LINE.
+      SELECTION-SCREEN PUSHBUTTON 6(20) pushbut1 USER-COMMAND full.
+      SELECTION-SCREEN PUSHBUTTON 35(40) pushbut2 USER-COMMAND clear.
+    SELECTION-SCREEN END OF LINE.
+
+  SELECTION-SCREEN END OF BLOCK b1.
+
+SELECTION-SCREEN END OF SCREEN 1002.
+
+
+
+INITIALIZATION.
+  "DEFAULT TAB AYARLANAN YER
+  tb1-activetab = 'ONE'.
+  tb1-dynnr  = 1001.
+  tb1-prog   = sy-repid. "PROGRAMIN ADINI TUTAN DEĞİŞKEN
+  t1 = 'Tablodan Veri Çek'.
+  t2 = 'Excel Dosyası Oku'.
+  pushbut1 = 'Veriyi Alv''de Göster'.
+  pushbut2 = 'Mevcut Dosyayı Alv Hafızasından Temizle'.
+  pushbut3 = 'Oku Ve Alv''de Göster'.
+  pushbut4 = 'View Olarak Göster'.
+
+
+  frame1 = 'Okunacak Excel Tablosunu Seç'.
+  frame2 = 'ALV İşlemleri'.
+  frame3 = 'Item Dosyasından Veri Oku'.
+  frame4 = 'Header Dosyasından Veri Oku'.
+
+  "LOJIK
+
+START-OF-SELECTION.
+*  IF p_cb1 ='X'.
+*    lv_v1 = pp_d1 + pp_d2.
+*    WRITE :/ ' SUM RESULT IS --> ', lv_v1.
+*  ENDIF.
+*
+*  IF p_cb2 ='X'.
+*    lv_v1 = pp_d1 - pp_d2.
+*    WRITE :/ ' SUBTRACTION RESULT IS --> ', lv_v1.
+*  ENDIF.
+*
+*  IF p_cb3 ='X'.
+*    lv_v1 = pp_d1 * pp_d2.
+*    WRITE :/ ' PRODUCT RESULT IS --> ', lv_v1.
+*  ENDIF.
+*
+*  IF p_cb4 ='X'.
+*    lv_v1 = pp_d1 / pp_d2.
+*    WRITE :/ ' DIVISION RESULT IS --> ', lv_v1.
+*  ENDIF.
+
+  "KULLANICININ SEÇİM YAPTIĞI DURUMDA ÇALIŞACAK LOJİK
+
+AT SELECTION-SCREEN.
+  CASE sy-dynnr. "SELECTION SCREEN NUMBER
+    WHEN 1000.
+      CASE sy-ucomm."FUNCTUON CODE BUTON
+        WHEN 'ONE'.
+          tb1-dynnr = 1001.
+        WHEN 'FULL'.
+*      CONCATENATE P_D1 P_D2 P_D3 INTO LV_V1 SEPARATED BY SPACE.
+          CONCATENATE p_d1 p_d2 p_d3 INTO p_d3 SEPARATED BY space.
+*      WRITE :/ 'FULL NAME IS :- ', LV_V1.
+        WHEN 'CLEAR'.
+          CLEAR : p_d1, p_d2, p_d3.
+        WHEN 'EXIT'.
+          LEAVE PROGRAM.
+        WHEN 'TWO'.
+          tb1-dynnr = 1002.
+      ENDCASE.
+  ENDCASE.
