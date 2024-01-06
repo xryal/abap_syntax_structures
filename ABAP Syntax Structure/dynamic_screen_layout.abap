@@ -1,3 +1,9 @@
+SELECTION-SCREEN BEGIN OF TABBED BLOCK tb1  FOR 13 LINES.
+
+  SELECTION-SCREEN TAB (20) t1 USER-COMMAND tab1.
+
+SELECTION-SCREEN END OF BLOCK tb1.
+
 SELECTION-SCREEN BEGIN OF SCREEN 1001 AS SUBSCREEN NESTING LEVEL 1.
 
   SELECTION-SCREEN BEGIN OF BLOCK b4 WITH FRAME TITLE frame4.
@@ -36,3 +42,31 @@ SELECTION-SCREEN BEGIN OF SCREEN 1001 AS SUBSCREEN NESTING LEVEL 1.
   SELECTION-SCREEN END OF BLOCK b4.
 
 SELECTION-SCREEN END OF SCREEN 1001.
+
+
+INITIALIZATION.
+  tb1-activetab = 'ONE'.
+  tb1-dynnr  = 1001.
+  tb1-prog   = sy-repid.
+
+START-OF-SELECTION.
+  IF p_rb1 = 'X'.
+    SELECT kunnr vbeln erdat ernam FROM vbak INTO TABLE it_vbak WHERE kunnr = p_d1.
+  ELSEIF p_rb2 = 'X'.
+    SELECT kunnr vbeln erdat ernam FROM vbak INTO TABLE it_vbak WHERE vbeln = p_d2.
+  ENDIF.
+
+  IF it_vbak IS NOT INITIAL.
+    LOOP AT it_vbak INTO wa_vbak.
+      WRITE :/ wa_vbak-kunnr, wa_vbak-vbeln, wa_vbak-erdat, wa_vbak-ernam.
+    ENDLOOP.
+  ENDIF.
+
+AT SELECTION-SCREEN.
+  CASE sy-dynnr. "SELECTION SCREEN NUMBER
+    WHEN 1000.
+      CASE sy-ucomm. "FUNCTUON CODE BUTON
+        WHEN 'TAB1'.
+          tb1-dynnr = 1001. "TAB SUBSCREENİ 1001 YAP.
+      ENDCASE.
+  ENDCASE.
